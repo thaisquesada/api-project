@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import br.com.tdd.api.entity.UserEntity;
 import br.com.tdd.api.repository.UserRepository;
 import br.com.tdd.api.services.UserService;
-import br.com.tdd.api.services.Exceptions.ObjectNotFoundException;
+import br.com.tdd.api.services.exceptions.ObjectNotFoundException;
 
 @Service
 public class UserServiceImpl implements UserService {
