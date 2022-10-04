@@ -1,5 +1,6 @@
 package br.com.tdd.api.services.impl;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,10 @@ public class UserServiceImpl implements UserService {
 	public UserEntity findById(long id) {
 		Optional<UserEntity> obj = userRepository.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado."));
+	}
+	
+	public List<UserEntity> findAll() {
+		return userRepository.findAll();
 	}
 
 }

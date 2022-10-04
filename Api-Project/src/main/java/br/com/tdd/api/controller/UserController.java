@@ -1,5 +1,8 @@
 package br.com.tdd.api.controller;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -24,6 +27,11 @@ public class UserController {
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<UserDTO> findById(@PathVariable long id) {
 		return ResponseEntity.ok().body(mapper.map(userService.findById(id), UserDTO.class));
+	}
+	
+	@GetMapping
+	public ResponseEntity<List<UserDTO>> findAll() {
+		return ResponseEntity.ok().body(userService.findAll().stream().map(x -> mapper.map(x, UserDTO.class)).collect(Collectors.toList()));
 	}
 	
 }
