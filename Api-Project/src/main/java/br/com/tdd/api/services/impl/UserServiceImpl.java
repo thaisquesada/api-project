@@ -1,13 +1,24 @@
 package br.com.tdd.api.services.impl;
 
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import br.com.tdd.api.entity.UserEntity;
+import br.com.tdd.api.repository.UserRepository;
 import br.com.tdd.api.services.UserService;
 
+@Service
 public class UserServiceImpl implements UserService {
 
+	@Autowired
+	private UserRepository userRepository;
+	
 	@Override
 	public UserEntity findById(long id) {
-		return null;
+		Optional<UserEntity> obj = userRepository.findById(id);
+		return obj.orElse(null);
 	}
 
 }
