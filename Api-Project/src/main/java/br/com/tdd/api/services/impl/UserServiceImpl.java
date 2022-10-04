@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import br.com.tdd.api.entity.UserEntity;
 import br.com.tdd.api.repository.UserRepository;
 import br.com.tdd.api.services.UserService;
+import br.com.tdd.api.services.Exceptions.ObjectNotFoundException;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -18,7 +19,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public UserEntity findById(long id) {
 		Optional<UserEntity> obj = userRepository.findById(id);
-		return obj.orElse(null);
+		return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado."));
 	}
 
 }
