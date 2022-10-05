@@ -11,6 +11,7 @@ import br.com.tdd.api.dto.UserDTO;
 import br.com.tdd.api.entity.UserEntity;
 import br.com.tdd.api.repository.UserRepository;
 import br.com.tdd.api.services.UserService;
+import br.com.tdd.api.services.exceptions.DataIntegrityViolationException;
 import br.com.tdd.api.services.exceptions.ObjectNotFoundException;
 
 @Service
@@ -34,7 +35,15 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public UserEntity create(UserDTO obj) {
+		findByEmail(obj);
 		return userRepository.save(mapper.map(obj, UserEntity.class));
+	}
+	
+	private void findByEmail(UserDTO obj) {
+		Optional<UserEntity> user = userRepository.findByEmail(obj.getEmail());
+		if(user.isPresent()) {
+			throw new DataIntegrityViolationException("Email já cadastrado no sistema.");
+		}
 	}
 
 }
