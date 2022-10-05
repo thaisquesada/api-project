@@ -14,5 +14,7 @@ public interface UserService {
 	UserEntity create(UserDTO obj);
 	
 	UserEntity update(UserDTO obj);
+	
+	void delete(Long id);
 
 }
