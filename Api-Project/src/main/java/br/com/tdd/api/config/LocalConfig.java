@@ -19,8 +19,8 @@ public class LocalConfig {
 	
 	@Bean
 	public void startDB() {
-		UserEntity u1 = new UserEntity(1, "Mary", "mary@email.com", "123");
-		UserEntity u2 = new UserEntity(2, "John", "john@email.com", "456");
+		UserEntity u1 = new UserEntity((long) 1, "Mary", "mary@email.com", "123");
+		UserEntity u2 = new UserEntity((long) 2, "John", "john@email.com", "456");
 		
 		userRepository.saveAll(List.of(u1, u2));
 	}

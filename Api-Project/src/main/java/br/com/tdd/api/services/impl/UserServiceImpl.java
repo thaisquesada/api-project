@@ -6,7 +6,6 @@ import java.util.Optional;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import br.com.tdd.api.dto.UserDTO;
 import br.com.tdd.api.entity.UserEntity;
 import br.com.tdd.api.repository.UserRepository;
@@ -39,9 +38,15 @@ public class UserServiceImpl implements UserService {
 		return userRepository.save(mapper.map(obj, UserEntity.class));
 	}
 	
+	@Override
+	public UserEntity update(UserDTO obj) {
+		findByEmail(obj);
+		return userRepository.save(mapper.map(obj, UserEntity.class));
+	}
+	
 	private void findByEmail(UserDTO obj) {
-		Optional<UserEntity> user = userRepository.findByEmail(obj.getEmail());
-		if(user.isPresent()) {
+		Optional<UserEntity> userEntity = userRepository.findByEmail(obj.getEmail());
+		if(userEntity.isPresent() && !userEntity.get().getId().equals(obj.getId())) {
 			throw new DataIntegrityViolationException("Email já cadastrado no sistema.");
 		}
 	}

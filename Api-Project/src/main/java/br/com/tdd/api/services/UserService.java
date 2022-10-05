@@ -12,5 +12,7 @@ public interface UserService {
 	List<UserEntity> findAll();
 	
 	UserEntity create(UserDTO obj);
+	
+	UserEntity update(UserDTO obj);
 
 }
