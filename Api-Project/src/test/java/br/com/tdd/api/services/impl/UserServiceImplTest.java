@@ -122,11 +122,24 @@ class UserServiceImplTest {
     }
 
     @Test
-    void update() {
+    void updateAndReturnSuccess() {
+        when(userRepository.save(any())).thenReturn(userEntity);
+
+        UserEntity response = userService.update(userDTO);
+
+        assertNotNull(response);
+        assertEquals(UserEntity.class, response.getClass());
+        assertEquals(ID, response.getId());
+        assertEquals(NAME, response.getName());
+        assertEquals(EMAIL, response.getEmail());
+        assertEquals(PASSWORD, response.getPassword());
     }
 
     @Test
     void delete() {
+
+
+
     }
 
     private void startUser() {
