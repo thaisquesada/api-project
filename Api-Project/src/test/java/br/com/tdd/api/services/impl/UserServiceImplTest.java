@@ -3,6 +3,7 @@ package br.com.tdd.api.services.impl;
 import br.com.tdd.api.dto.UserDTO;
 import br.com.tdd.api.entity.UserEntity;
 import br.com.tdd.api.repository.UserRepository;
+import br.com.tdd.api.services.exceptions.ObjectNotFoundException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -58,6 +59,18 @@ class UserServiceImplTest {
         Assertions.assertEquals(NAME, response.getName());
         Assertions.assertEquals(EMAIL, response.getEmail());
 
+    }
+
+    @Test
+    void findByIdAndReturnObjectNotFoundException() {
+        when(userRepository.findById(anyLong())).thenThrow(new ObjectNotFoundException("Objeto não encontrado."));
+
+        try {
+            userService.findById(ID);
+        } catch (Exception ex) {
+            assertEquals(ObjectNotFoundException.class, ex.getClass());
+            assertEquals("Objeto não encontrado.", ex.getMessage());
+        }
     }
 
     @Test
