@@ -14,6 +14,7 @@ import org.mockito.MockitoAnnotations;
 import org.modelmapper.ModelMapper;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -23,10 +24,12 @@ import static org.mockito.Mockito.when;
 @SpringBootTest
 class UserServiceImplTest {
 
-    public static final long ID = 1L;
+    public static final Long ID = 1L;
     public static final String NAME = "Jane";
     public static final String EMAIL = "jane@teste.com";
     public static final String PASSWORD = "123456";
+    public static final String OBJETO_NAO_ENCONTRADO = "Objeto não encontrado.";
+    public static final int INDEX = 0;
 
     @InjectMocks
     private UserServiceImpl userService;
@@ -63,18 +66,31 @@ class UserServiceImplTest {
 
     @Test
     void findByIdAndReturnObjectNotFoundException() {
-        when(userRepository.findById(anyLong())).thenThrow(new ObjectNotFoundException("Objeto não encontrado."));
+        when(userRepository.findById(anyLong())).thenThrow(new ObjectNotFoundException(OBJETO_NAO_ENCONTRADO));
 
         try {
             userService.findById(ID);
         } catch (Exception ex) {
             assertEquals(ObjectNotFoundException.class, ex.getClass());
-            assertEquals("Objeto não encontrado.", ex.getMessage());
+            assertEquals(OBJETO_NAO_ENCONTRADO, ex.getMessage());
         }
     }
 
     @Test
-    void findAll() {
+    void findAllAndReturnAListOfUsers() {
+        when(userRepository.findAll()).thenReturn(List.of(userEntity));
+
+        List<UserEntity> response = userService.findAll();
+
+        assertNotNull(response);
+        assertEquals(1, response.size());
+        assertEquals(UserEntity.class, response.get(INDEX).getClass());
+
+        assertEquals(ID, response.get(INDEX).getId());
+        assertEquals(ID, response.get(INDEX).getName());
+        assertEquals(ID, response.get(INDEX).getEmail());
+        assertEquals(ID, response.get(INDEX).getPassword());
+
     }
 
     @Test
