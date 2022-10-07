@@ -87,9 +87,9 @@ class UserServiceImplTest {
         assertEquals(UserEntity.class, response.get(INDEX).getClass());
 
         assertEquals(ID, response.get(INDEX).getId());
-        assertEquals(ID, response.get(INDEX).getName());
-        assertEquals(ID, response.get(INDEX).getEmail());
-        assertEquals(ID, response.get(INDEX).getPassword());
+        assertEquals(NAME, response.get(INDEX).getName());
+        assertEquals(EMAIL, response.get(INDEX).getEmail());
+        assertEquals(PASSWORD, response.get(INDEX).getPassword());
 
     }
 
