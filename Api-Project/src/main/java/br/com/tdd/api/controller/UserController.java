@@ -18,19 +18,19 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import br.com.tdd.api.dto.UserDTO;
-import br.com.tdd.api.services.UserService;
+import br.com.tdd.api.service.UserService;
 
 @RestController
 @RequestMapping(value = "/user")
 public class UserController {
 	
 	private static final String ID = "/{id}";
+
+	@Autowired
+	private UserService userService;
 	
 	@Autowired
 	private ModelMapper mapper;
-	
-	@Autowired
-	private UserService userService;
 
 	@GetMapping(value = ID)
 	public ResponseEntity<UserDTO> findById(@PathVariable Long id) {

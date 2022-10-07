@@ -1,4 +1,4 @@
-package br.com.tdd.api.exception.controller;
+package br.com.tdd.api.exceptioncontroller;
 
 import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;

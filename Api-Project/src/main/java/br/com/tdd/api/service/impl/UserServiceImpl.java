@@ -1,4 +1,4 @@
-package br.com.tdd.api.services.impl;
+package br.com.tdd.api.service.impl;
 
 import java.util.List;
 import java.util.Optional;
@@ -9,9 +9,9 @@ import org.springframework.stereotype.Service;
 import br.com.tdd.api.dto.UserDTO;
 import br.com.tdd.api.entity.UserEntity;
 import br.com.tdd.api.repository.UserRepository;
-import br.com.tdd.api.services.UserService;
-import br.com.tdd.api.services.exceptions.DataIntegrityViolationException;
-import br.com.tdd.api.services.exceptions.ObjectNotFoundException;
+import br.com.tdd.api.service.UserService;
+import br.com.tdd.api.service.exceptions.DataIntegrityViolationException;
+import br.com.tdd.api.service.exceptions.ObjectNotFoundException;
 
 @Service
 public class UserServiceImpl implements UserService {

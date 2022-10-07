@@ -1,4 +1,4 @@
-package br.com.tdd.api.exception.controller;
+package br.com.tdd.api.exceptioncontroller;
 
 import java.time.LocalDateTime;
 
@@ -9,8 +9,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-import br.com.tdd.api.services.exceptions.DataIntegrityViolationException;
-import br.com.tdd.api.services.exceptions.ObjectNotFoundException;
+import br.com.tdd.api.service.exceptions.DataIntegrityViolationException;
+import br.com.tdd.api.service.exceptions.ObjectNotFoundException;
 
 @ControllerAdvice
 public class ControllerExceptionHandler {

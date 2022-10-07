@@ -1,4 +1,4 @@
-package br.com.tdd.api.services.exceptions;
+package br.com.tdd.api.service.exceptions;
 
 public class ObjectNotFoundException extends RuntimeException {
 

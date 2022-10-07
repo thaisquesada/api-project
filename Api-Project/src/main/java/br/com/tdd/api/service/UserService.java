@@ -1,4 +1,4 @@
-package br.com.tdd.api.services;
+package br.com.tdd.api.service;
 
 import java.util.List;
 

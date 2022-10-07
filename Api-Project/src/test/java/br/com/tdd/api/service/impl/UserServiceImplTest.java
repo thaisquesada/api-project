@@ -1,16 +1,15 @@
-package br.com.tdd.api.services.impl;
+package br.com.tdd.api.service.impl;
 
 import br.com.tdd.api.dto.UserDTO;
 import br.com.tdd.api.entity.UserEntity;
 import br.com.tdd.api.repository.UserRepository;
-import br.com.tdd.api.services.exceptions.DataIntegrityViolationException;
-import br.com.tdd.api.services.exceptions.ObjectNotFoundException;
+import br.com.tdd.api.service.exceptions.DataIntegrityViolationException;
+import br.com.tdd.api.service.exceptions.ObjectNotFoundException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.modelmapper.ModelMapper;
 import org.springframework.boot.test.context.SpringBootTest;
