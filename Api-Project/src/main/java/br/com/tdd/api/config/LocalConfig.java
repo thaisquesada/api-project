@@ -1,14 +1,12 @@
 package br.com.tdd.api.config;
 
 import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Profile;
-
 import br.com.tdd.api.entity.UserEntity;
 import br.com.tdd.api.repository.UserRepository;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Profile;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.beans.factory.annotation.Autowired;
 
 @Configuration
 @Profile("local")

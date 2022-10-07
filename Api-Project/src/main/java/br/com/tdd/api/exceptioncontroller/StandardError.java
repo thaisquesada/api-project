@@ -1,9 +1,8 @@
 package br.com.tdd.api.exceptioncontroller;
 
-import java.time.LocalDateTime;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.Setter;
+import lombok.AllArgsConstructor;
+import java.time.LocalDateTime;
 
 @Getter
 @AllArgsConstructor
