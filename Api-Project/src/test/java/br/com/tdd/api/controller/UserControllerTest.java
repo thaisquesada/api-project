@@ -3,6 +3,7 @@ package br.com.tdd.api.controller;
 import br.com.tdd.api.dto.UserDTO;
 import br.com.tdd.api.entity.UserEntity;
 import br.com.tdd.api.service.UserService;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -11,15 +12,17 @@ import org.mockito.MockitoAnnotations;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyLong;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 class UserControllerTest {
 
@@ -27,8 +30,6 @@ class UserControllerTest {
     public static final String NAME = "Jane";
     public static final String EMAIL = "jane@teste.com";
     public static final String PASSWORD = "123456";
-    public static final String OBJETO_NAO_ENCONTRADO = "Objeto não encontrado.";
-    public static final String EMAIL_JA_CADASTRADO = "Email já cadastrado no sistema.";
     public static final int INDEX = 0;
 
     private UserEntity userEntity;
@@ -36,16 +37,18 @@ class UserControllerTest {
 
     @InjectMocks
     private UserController userController;
-
     @Mock
     private UserService userService;
-
     @Mock
     private ModelMapper mapper;
+    @Mock
+    HttpServletRequest request;
 
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
+        //A LINHA ABAIXO CORRIGIU O ERRO: No current ServletRequestAttributes
+        RequestContextHolder.setRequestAttributes(new ServletRequestAttributes(request));
         startUser();
     }
 
@@ -88,7 +91,14 @@ class UserControllerTest {
     }
 
     @Test
-    void create() {
+    void createAndReturnSuccess() {
+        when(userService.create(any())).thenReturn(userEntity);
+
+        ResponseEntity<UserDTO> response = userController.create(userDTO);
+
+        assertEquals(ResponseEntity.class, response.getClass());
+        assertEquals(HttpStatus.CREATED, response.getStatusCode());
+        assertNotNull(response.getHeaders().get("Location"));
     }
 
     @Test
