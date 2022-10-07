@@ -1,5 +1,6 @@
 package br.com.tdd.api.exceptioncontroller;
 
+import br.com.tdd.api.service.exceptions.DataIntegrityViolationException;
 import br.com.tdd.api.service.exceptions.ObjectNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -16,6 +17,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class ControllerExceptionHandlerTest {
 
     public static final String OBJETO_NAO_ENCONTRADO = "Objeto não encontrado.";
+    public static final String E_MAIL_JA_CADASTRADO = "E-mail já cadastrado.";
     @InjectMocks
     private ControllerExceptionHandler exceptionHandler;
 
@@ -25,7 +27,7 @@ class ControllerExceptionHandlerTest {
     }
 
     @Test
-    void objectNotFoundAndReturnResponseEntity() {
+    void objectNotFoundReturnResponseEntity() {
         ResponseEntity<StandardError> response = exceptionHandler
                 .objectNotFound(
                         new ObjectNotFoundException(OBJETO_NAO_ENCONTRADO),
@@ -41,6 +43,18 @@ class ControllerExceptionHandlerTest {
     }
 
     @Test
-    void dataIntegrityViolationException() {
+    void dataIntegrityViolationExceptionReturnResponseEntity() {
+        ResponseEntity<StandardError> response = exceptionHandler
+                .DataIntegrityViolationException(
+                        new DataIntegrityViolationException(E_MAIL_JA_CADASTRADO),
+                        new MockHttpServletRequest());
+
+        assertNotNull(response);
+        assertNotNull(response.getBody());
+        assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
+        assertEquals(ResponseEntity.class, response.getClass());
+        assertEquals(StandardError.class, response.getBody().getClass());
+        assertEquals(E_MAIL_JA_CADASTRADO, response.getBody().getError());
+        assertEquals(400, response.getBody().getStatus());
     }
 }
